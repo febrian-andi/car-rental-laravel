@@ -26,7 +26,7 @@ class Booking extends Model
         'user_id',
     ];
 
-    protected $casts = [
+    protected $dates = [
         'start_date',
         'end_date',
     ];
