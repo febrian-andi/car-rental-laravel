@@ -5,7 +5,7 @@
             <a href="#!" onclick="window.history.go(-1); return false;">
                 ←
             </a>
-            {!! __('Brand &raquo; Create') !!}
+            {!! __('Brand &raquo; Create New Brand') !!}
         </h2>
     </x-slot>
 
