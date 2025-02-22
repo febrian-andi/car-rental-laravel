@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Item extends Model
 {
@@ -21,6 +22,18 @@ class Item extends Model
         'star',
         'review',
     ];
+
+    protected $casts = [
+        'photos' => 'array',
+    ];
+
+    public function getThumbnailAttribute() {
+        if ($this->photos) {
+            return Storage::url(json_decode($this->photos)[0]);
+        }
+
+        return 'https://via.placeholder.com/200';
+    }
 
     public function brand() {
         return $this->belongsTo(Brand::class);
