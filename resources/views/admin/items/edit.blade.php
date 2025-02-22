@@ -130,9 +130,9 @@
                         <div class="w-full">
                             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                                 for="grid-last-name">
-                                Rating
+                                Star
                             </label>
-                            <input value="{{ old('rating') ?? $item->rating }}" name="rating"
+                            <input value="{{ old('star') ?? $item->star }}" name="star"
                                 class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="grid-last-name" type="number" placeholder="Example: 5" min="1"
                                 max="5" step=".01">

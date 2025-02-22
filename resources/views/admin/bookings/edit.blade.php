@@ -5,7 +5,7 @@
             <a href="#!" onclick="window.history.go(-1); return false;">
                 ←
             </a>
-            {!! __('Item &raquo; Create New Item') !!}
+            {!! __('Booking &raquo; Edit &raquo; #') . $booking->id . ' &middot; ' . $booking->name !!}
         </h2>
     </x-slot>
 
@@ -28,20 +28,21 @@
                         </div>
                     </div>
                 @endif
-                <form class="w-full" action="{{ route('admin.items.store') }}" method="post"
+                <form class="w-full" action="{{ route('admin.bookings.update', $booking->id) }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
                         <div class="w-full">
                             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                                 for="grid-last-name">
-                                Item Name*
+                                Name
                             </label>
-                            <input value="{{ old('name') }}" name="name"
+                            <input value="{{ old('name') ?? $booking->name }}" name="name"
                                 class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text" placeholder="Example: Item 1, Item 2, etc." required>
+                                id="grid-last-name" type="text" required>
                             <div class="mt-2 text-sm text-gray-500">
-                                Required. Maximum 255 characters.
+                                Name of the booking
                             </div>
                         </div>
                     </div>
@@ -49,13 +50,89 @@
                         <div class="w-full">
                             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                                 for="grid-last-name">
-                                Brand*
+                                Address
                             </label>
-                            <select name="brand_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                                <option value="">Select Brand</option>
-                                @foreach ($brands as $brand)
-                                    <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
-                                @endforeach
+                            <input value="{{ old('address') ?? $booking->address }}" name="address"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                City
+                            </label>
+                            <input value="{{ old('city') ?? $booking->city }}" name="city"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                ZIP Code
+                            </label>
+                            <input value="{{ old('zip') ?? $booking->zip }}" name="zip"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                Item
+                            </label>
+                            <input value="{{ old('item.brand.name') ?? $booking->item->brand->name }}" name="item_brand_name"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                Total Price
+                            </label>
+                            <input value="{{ old('total_price') ?? $booking->total_price }}" name="total_price"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                Start Date
+                            </label>
+                            <input value="{{ old('start_date') ?? $booking->start_date }}" name="start_date"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                End Date
+                            </label>
+                            <input value="{{ old('end_date') ?? $booking->end_date }}" name="end_date"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                        <div class="w-full">
+                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                                for="grid-last-name">
+                                Booking Status
+                            </label>
+                            <select name="status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500">
+                                <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="confirned" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                <option value="done" {{ $booking->status == 'done' ? 'selected' : '' }}>Done</option>
                             </select>
                         </div>
                     </div>
@@ -63,80 +140,14 @@
                         <div class="w-full">
                             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                                 for="grid-last-name">
-                                Type*
+                                Payment Status
                             </label>
-                            <select name="type_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                                <option value="">Select Type</option>
-                                @foreach ($types as $type)
-                                    <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
-                                @endforeach
+                            <select name="status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500">
+                                <option value="pending" {{ $booking->payment_status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="success" {{ $booking->payment_status == 'success' ? 'selected' : '' }}>Success</option>
+                                <option value="failed" {{ $booking->payment_status == 'failed' ? 'selected' : '' }}>Failed</option>
+                                <option value="expired" {{ $booking->payment_status == 'expired' ? 'selected' : '' }}>Expired</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
-                        <div class="w-full">
-                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-                                for="grid-last-name">
-                                Features*
-                            </label>
-                            <input value="{{ old('features') }}" name="features"
-                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text" placeholder="Example: Feature 1, Feature 2, etc.">
-                            <div class="mt-2 text-sm text-gray-500">
-                                Optional. Separated by commas (,).
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
-                        <div class="w-full">
-                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-                                for="grid-last-name">
-                                Photo*
-                            </label>
-                            <input value="{{ old('photos') }}" name="photos[]"
-                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="file" accept="image/png, image/jpg, image/jpeg, image/webp" multiple required>
-                            <div class="mt-2 text-sm text-gray-500">
-                                Required. Can include more than one photo.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-3 mt-4 mb-6">
-                        <div class="w-full">
-                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-                                for="grid-last-name">
-                                Price*
-                            </label>
-                            <input value="{{ old('price') }}" name="price"
-                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="number" placeholder="Example: 100000 " required>
-                            <div class="mt-2 text-sm text-gray-500">
-                                Required.
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-                                for="grid-last-name">
-                                Star
-                            </label>
-                            <input value="{{ old('star') }}" name="star"
-                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="number" placeholder="Example: 5" min="1" max="5" step=".01">
-                            <div class="mt-2 text-sm text-gray-500">
-                                Optional. Between 1-5. Up to 2 decimal places.
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-                                for="grid-last-name">
-                                Review
-                            </label>
-                            <input value="{{ old('review') }}" name="review"
-                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="number" placeholder="Example: 5">
-                            <div class="mt-2 text-sm text-gray-500">
-                                Optional. Integer only.
-                            </div>
                         </div>
                     </div>
 

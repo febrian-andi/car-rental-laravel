@@ -24,7 +24,7 @@
                     <x-nav-link href="{{ route('admin.types.index') }}" :active="request()->routeIs('admin.types.index')">
                         {{ __('Type') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                    <x-nav-link href="{{ route('admin.bookings.index') }}" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Booking') }}
                     </x-nav-link>
                 </div>
@@ -154,16 +154,16 @@
             <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+            <x-responsive-nav-link href="{{ route('admin.items.index') }}" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Item') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('admin.brands.index') }}" :active="request()->routeIs('admin.brands.index')">
                 {{ __('Brand') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+            <x-responsive-nav-link href="{{ route('admin.types.index') }}" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Type') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+            <x-responsive-nav-link href="{{ route('admin.bookings.index') }}" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Booking') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
